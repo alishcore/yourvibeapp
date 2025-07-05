@@ -12,17 +12,18 @@ from datetime import datetime
 
 # Secure Gemini API key usage
 # Import credentials from config file
-try:
-    import os
+import os
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
-except ImportError:
-    st.error("🚨 **Configuration File Not Found!**")
-    st.warning("Please create a `config.py` file and add your API keys.")
+# Show error if missing
+if not GEMINI_API_KEY:
+    st.error("🚨 **Google Gemini API Key Not Found!**")
+    st.warning("Please set GEMINI_API_KEY in Streamlit secrets or environment variables.")
     st.stop()
+
 
 # Secure Gemini API key usage
 if not GEMINI_API_KEY or "your-api-key-here" in GEMINI_API_KEY:
