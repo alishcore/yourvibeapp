@@ -235,6 +235,4 @@ env/
 
 # Logs
 *.log
-GEMINI_API_KEY='AIzaSyAU5w-MwXC8p3OMnkJhCtrIT2-9ze2SKyk'
-SUPABASE_URL='https://kxqnboezqyqayxkqdlym.supabase.co '
-SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4cW5ib2V6cXlxYXl4a3FkbHltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2MzYxNzgsImV4cCI6MjA2NzIxMjE3OH0.WSFTZXZ7mMVy0HU0zCh1gOcPaMgLM437QvCE8GKGA00'
+.streamlit/secrets.toml
