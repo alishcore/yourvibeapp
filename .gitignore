@@ -205,3 +205,33 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Streamlit config
+.streamlit/secrets.toml
+
+# Local config or API keys
+config.py
+
+# Environment variables
+.env
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# VSCode settings
+.vscode/
+
+# macOS files
+.DS_Store
+
+# Python virtual environments
+venv/
+env/
+*.egg-info/
+
+# Logs
+*.log
