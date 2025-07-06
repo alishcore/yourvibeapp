@@ -10,22 +10,20 @@ import google.generativeai as genai
 from supabase import create_client, Client
 from datetime import datetime
 
-# Secure Gemini API key usage
-# Import credentials from config file
+
 import os
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
-# Show error if missing
+
 if not GEMINI_API_KEY:
     st.error("🚨 **Google Gemini API Key Not Found!**")
     st.warning("Please set GEMINI_API_KEY in Streamlit secrets or environment variables.")
     st.stop()
 
 
-# Secure Gemini API key usage
 if not GEMINI_API_KEY or "your-api-key-here" in GEMINI_API_KEY:
     st.error("🚨 **Google Gemini API Key Not Found!**")
     st.warning("""
@@ -69,7 +67,6 @@ def setup_database():
     """Setup database table if it doesn't exist"""
     try:
         if supabase:
-            # Try to create the table (will be ignored if exists)
             supabase.rpc('exec', {'query': '''
                 CREATE TABLE IF NOT EXISTS user_vibes (
                     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -94,7 +91,6 @@ def setup_database():
     except Exception as e:
         print(f"Database setup failed: {e}")
 
-# Authentication functions
 def register_user(email, password, name):
     """Register a new user"""
     try:
