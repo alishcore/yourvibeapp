@@ -205,114 +205,63 @@ def display_vibe_result(vibe_data):
     """
     Display the generated vibe result with clean, modern styling
     """
-    st.markdown('<div class="vibe-result-container">', unsafe_allow_html=True)
-    
-    # Animated header
-    st.markdown('''
-        <div class="vibe-header">
-            <div class="pulse-animation">🎵</div>
-            <h2>Your Musical Vibe</h2>
-            <div class="pulse-animation">🎶</div>
-        </div>
-    ''', unsafe_allow_html=True)
-    
-    # Main vibe card
     st.markdown('<div class="vibe-card">', unsafe_allow_html=True)
+    st.markdown('<h2 style="text-align: center; margin-bottom: 2rem;">🎵 Your Musical Vibe</h2>', unsafe_allow_html=True)
     
     # Create columns for better layout
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown(f'''
-            <div class="vibe-item mood-item">
-                <div class="vibe-icon">🎭</div>
-                <div class="vibe-content">
-                    <h4>Mood</h4>
-                    <p>{vibe_data.get('mood', 'Unknown')}</p>
-                </div>
-            </div>
-        ''', unsafe_allow_html=True)
+        st.markdown('<div class="vibe-item">', unsafe_allow_html=True)
+        st.markdown("**🎭 Mood**")
+        st.markdown(f"<span style='font-size: 1.2rem; font-style: italic;'>{vibe_data.get('mood', 'Unknown')}</span>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
-        st.markdown(f'''
-            <div class="vibe-item genre-item">
-                <div class="vibe-icon">🎸</div>
-                <div class="vibe-content">
-                    <h4>Genre</h4>
-                    <p>{vibe_data.get('genre', 'Unknown')}</p>
-                </div>
-            </div>
-        ''', unsafe_allow_html=True)
+        st.markdown('<div class="vibe-item">', unsafe_allow_html=True)
+        st.markdown("**🎸 Genre**") 
+        st.markdown(f"<span style='font-size: 1.2rem; font-style: italic;'>{vibe_data.get('genre', 'Unknown')}</span>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
+        st.markdown('<div class="vibe-item">', unsafe_allow_html=True)
+        st.markdown("**⚡ Energy Level**")
         energy = vibe_data.get('energy_level', 'Unknown')
         energy_emoji = {"low": "🔋", "medium": "🔋🔋", "high": "🔋🔋🔋"}.get(energy.lower(), "🔋")
-        st.markdown(f'''
-            <div class="vibe-item energy-item">
-                <div class="vibe-icon">⚡</div>
-                <div class="vibe-content">
-                    <h4>Energy Level</h4>
-                    <p>{energy_emoji} {energy.title()}</p>
-                </div>
-            </div>
-        ''', unsafe_allow_html=True)
+        st.markdown(f"<span style='font-size: 1.2rem; font-style: italic;'>{energy_emoji} {energy.title()}</span>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
+        st.markdown('<div class="vibe-item">', unsafe_allow_html=True)
+        st.markdown("**✨ Aesthetic Keywords**")
         keywords = vibe_data.get('aesthetic_keywords', [])
-        keywords_html = ""
         if keywords:
-            keywords_html = "".join([f'<span class="keyword-tag">{keyword}</span>' for keyword in keywords])
+            keywords_text = " • ".join(keywords)
+            st.markdown(f"<span style='font-size: 1.2rem; font-style: italic;'>{keywords_text}</span>", unsafe_allow_html=True)
         else:
-            keywords_html = '<span class="keyword-tag">No keywords</span>'
+            st.markdown("<span style='font-size: 1.2rem; font-style: italic;'>No keywords available</span>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
-        st.markdown(f'''
-            <div class="vibe-item keywords-item">
-                <div class="vibe-icon">✨</div>
-                <div class="vibe-content">
-                    <h4>Aesthetic Keywords</h4>
-                    <div class="keywords-container">
-                        {keywords_html}
-                    </div>
-                </div>
-            </div>
-        ''', unsafe_allow_html=True)
-        
+        st.markdown('<div class="vibe-item">', unsafe_allow_html=True)
+        st.markdown("**🎼 Suggested Music**")
         suggested = vibe_data.get('suggested_music', 'No suggestion available')
+        # Create YouTube search link
         youtube_query = suggested.replace(' ', '+').replace('-', '+')
         youtube_url = f"https://www.youtube.com/results?search_query={youtube_query}"
-        
-        st.markdown(f'''
-            <div class="vibe-item music-item">
-                <div class="vibe-icon">🎼</div>
-                <div class="vibe-content">
-                    <h4>Suggested Music</h4>
-                    <p>{suggested}</p>
-                    <a href="{youtube_url}" target="_blank" class="listen-btn">
-                        <span class="btn-icon">🎵</span>
-                        Listen Now
-                    </a>
-                </div>
-            </div>
-        ''', unsafe_allow_html=True)
+        st.markdown(f'<span style="font-size: 1.2rem; font-style: italic;">{suggested}</span> <a href="{youtube_url}" target="_blank" class="youtube-link">🎵 Listen</a>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 def show_auth_page():
     """Display login/register page"""
-    st.markdown('''
-        <div class="auth-container">
-            <div class="auth-header">
-                <h1 class="main-title">🎵 You in a Song</h1>
-                <p class="main-subtitle">Discover your personalized music vibe using AI</p>
-            </div>
-        </div>
-    ''', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">🎵 You in a Song</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Please login or register to save your music vibes</p>', unsafe_allow_html=True)
     
-    tab1, tab2 = st.tabs(["🔐 Login", "📝 Register"])
+    tab1, tab2 = st.tabs(["Login", "Register"])
     
     with tab1:
-        st.markdown('<div class="auth-form">', unsafe_allow_html=True)
-        st.markdown("### Welcome Back!")
-        email = st.text_input("📧 Email", key="login_email", placeholder="Enter your email")
-        password = st.text_input("🔒 Password", type="password", key="login_password", placeholder="Enter your password")
+        st.markdown("### 🔐 Login to Your Account")
+        email = st.text_input("Email", key="login_email")
+        password = st.text_input("Password", type="password", key="login_password")
         
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
@@ -334,15 +283,13 @@ def show_auth_page():
                         st.error(f"Login error: {str(e)}")
                 else:
                     st.error("Please enter both email and password")
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with tab2:
-        st.markdown('<div class="auth-form">', unsafe_allow_html=True)
-        st.markdown("### Join the Music Community!")
-        name = st.text_input("👤 Full Name", key="register_name", placeholder="Enter your full name")
-        email = st.text_input("📧 Email", key="register_email", placeholder="Enter your email")
-        password = st.text_input("🔒 Password", type="password", key="register_password", placeholder="Enter your password")
-        confirm_password = st.text_input("🔒 Confirm Password", type="password", key="register_confirm", placeholder="Confirm your password")
+        st.markdown("### 📝 Create New Account")
+        name = st.text_input("Full Name", key="register_name")
+        email = st.text_input("Email", key="register_email")
+        password = st.text_input("Password", type="password", key="register_password")
+        confirm_password = st.text_input("Confirm Password", type="password", key="register_confirm")
         
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
@@ -368,7 +315,6 @@ def show_auth_page():
                         st.error("Passwords do not match")
                 else:
                     st.error("Please fill in all fields")
-        st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown("---")
     col1, col2, col3 = st.columns([1, 1, 1])
@@ -380,41 +326,26 @@ def show_auth_page():
 def show_user_history():
     """Display user's vibe history"""
     if 'user' in st.session_state and supabase:
-        st.markdown('''
-            <div class="history-section">
-                <h3 class="section-title">
-                    <span class="section-icon">📚</span>
-                    Your Music Vibe History
-                </h3>
-            </div>
-        ''', unsafe_allow_html=True)
+        st.markdown('<h3 class="section-header">📚 Your Music Vibe History</h3>', unsafe_allow_html=True)
         
         history = get_user_history(st.session_state['user'].id)
         
         if history:
             for i, vibe in enumerate(history[:5]):  # Show last 5 vibes
-                with st.expander(f"🎵 {vibe['mood']} - {vibe['genre']} ({vibe['created_at'][:10]})", expanded=False):
-                    st.markdown('<div class="history-item">', unsafe_allow_html=True)
+                with st.expander(f"🎵 {vibe['mood']} - {vibe['genre']} ({vibe['created_at'][:10]})"):
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.markdown(f"**📝 Description:** {vibe['description']}")
-                        st.markdown(f"**🎭 Mood:** {vibe['mood']}")
-                        st.markdown(f"**🎸 Genre:** {vibe['genre']}")
+                        st.write(f"**Description:** {vibe['description']}")
+                        st.write(f"**Mood:** {vibe['mood']}")
+                        st.write(f"**Genre:** {vibe['genre']}")
                     with col2:
-                        st.markdown(f"**⚡ Energy:** {vibe['energy_level']}")
+                        st.write(f"**Energy:** {vibe['energy_level']}")
                         if vibe['aesthetic_keywords']:
                             keywords = " • ".join(vibe['aesthetic_keywords'])
-                            st.markdown(f"**✨ Keywords:** {keywords}")
-                        st.markdown(f"**🎼 Music:** {vibe['suggested_music']}")
-                    st.markdown('</div>', unsafe_allow_html=True)
+                            st.write(f"**Keywords:** {keywords}")
+                        st.write(f"**Music:** {vibe['suggested_music']}")
         else:
-            st.markdown('''
-                <div class="empty-history">
-                    <div class="empty-icon">🎵</div>
-                    <p>No music vibes saved yet.</p>
-                    <p>Generate your first one below!</p>
-                </div>
-            ''', unsafe_allow_html=True)
+            st.info("No music vibes saved yet. Generate your first one below!")
 
 def main():
     """
@@ -425,701 +356,212 @@ def main():
         show_auth_page()
         return
     
-    # Enhanced Custom CSS
+    # Custom CSS for better styling
     st.markdown("""
     <style>
-    /* Import Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap');
-    
-    /* Global Styles */
-    .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-    }
-    
-    .main .block-container {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 2rem;
-        margin: 1rem auto;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Typography */
-    .main-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 4rem;
-        font-weight: 700;
+    .main-header {
         text-align: center;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        font-size: 3.5rem;
+        font-weight: bold;
         margin-bottom: 0.5rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
-    
-    .main-subtitle {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.3rem;
+    .subtitle {
         text-align: center;
         color: #666;
-        margin-bottom: 2rem;
-        font-weight: 300;
-    }
-    
-    .section-title {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .section-icon {
-        font-size: 1.8rem;
-    }
-    
-    /* Auth Container */
-    .auth-container {
-        text-align: center;
+        font-size: 1.2rem;
         margin-bottom: 2rem;
     }
-    
-    .auth-header {
-        padding: 2rem 0;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        border-radius: 15px;
-        margin-bottom: 2rem;
-    }
-    
-    .auth-form {
-        background: rgba(255, 255, 255, 0.8);
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Vibe Result Styling */
-    .vibe-result-container {
-        margin: 2rem 0;
-    }
-    
-    .vibe-header {
-        text-align: center;
-        margin-bottom: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    .vibe-header h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.5rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .section-header {
+        background: linear-gradient(90deg, #ff6b6b, #ffa500);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        margin: 0;
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
     }
-    
-    .pulse-animation {
-        font-size: 2rem;
-        animation: pulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.1); opacity: 0.8; }
-    }
-    
     .vibe-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
         border-radius: 20px;
-        padding: 2.5rem;
-        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .vibe-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.1) 100%);
-        pointer-events: none;
-    }
-    
-    .vibe-item {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .vibe-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        background: rgba(255, 255, 255, 0.25);
-    }
-    
-    .vibe-item:last-child {
-        margin-bottom: 0;
-    }
-    
-    .vibe-icon {
-        font-size: 2rem;
-        min-width: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .vibe-content {
-        flex: 1;
-    }
-    
-    .vibe-content h4 {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 600;
         color: white;
-        margin: 0 0 0.5rem 0;
+        margin: 1rem 0;
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
     }
-    
-    .vibe-content p {
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.9);
-        margin: 0;
-        font-weight: 400;
+    .vibe-item {
+        background: transparent;
+        padding: 1rem 0;
+        margin: 0.8rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 1.1rem;
     }
-    
-    .keywords-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
+    .vibe-item:last-child {
+        border-bottom: none;
     }
-    
-    .keyword-tag {
-        background: rgba(255, 255, 255, 0.2);
+    .youtube-link {
+        background: #ff0000;
         color: white;
         padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transition: all 0.3s ease;
-    }
-    
-    .keyword-tag:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(1.05);
-    }
-    
-    .listen-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
-        color: white;
-        padding: 0.7rem 1.5rem;
-        border-radius: 25px;
+        border-radius: 15px;
         text-decoration: none;
-        font-weight: 600;
         font-size: 0.9rem;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-    }
-    
-    .listen-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        text-decoration: none;
-        color: white;
-    }
-    
-    .btn-icon {
-        font-size: 1rem;
-    }
-    
-    /* History Section */
-    .history-section {
-        margin-bottom: 2rem;
-    }
-    
-    .history-item {
-        background: rgba(102, 126, 234, 0.05);
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .empty-history {
-        text-align: center;
-        padding: 3rem;
-        background: rgba(102, 126, 234, 0.05);
-        border-radius: 15px;
-        margin: 2rem 0;
-    }
-    
-    .empty-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-    
-    .empty-history p {
-        color: #666;
-        font-size: 1.1rem;
-        margin: 0.5rem 0;
-    }
-    
-    /* Form Styling */
-    .stTextInput > div > div > input {
-        border-radius: 10px;
-        border: 2px solid rgba(102, 126, 234, 0.3);
-        padding: 0.75rem;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.9);
-    }
-    
-    .stTextInput > div > div > input:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-    
-    .stTextArea > div > div > textarea {
-        border-radius: 15px;
-        border: 2px solid rgba(102, 126, 234, 0.3);
-        padding: 1rem;
-        font-size: 1rem;
-        background: rgba(255, 255, 255, 0.9);
-        transition: all 0.3s ease;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    .stTextArea > div > div > textarea:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-    
-    /* Button Styling */
-    .stButton > button {
-        border-radius: 25px;
-        border: none;
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-    
-    .stButton > button[kind="primary"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-    }
-    
-    .stButton > button[kind="secondary"] {
-        background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-        color: #2d3436;
-    }
-    
-    .stButton > button[kind="secondary"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(255, 234, 167, 0.4);
-    }
-    
-    /* Tabs Styling */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 1rem;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 10px;
-        padding: 0.5rem 1rem;
-        font-weight: 500;
-        background: rgba(102, 126, 234, 0.1);
-        border: 1px solid rgba(102, 126, 234, 0.2);
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-    
-    /* Expander Styling */
-    .streamlit-expanderHeader {
-        background: rgba(102, 126, 234, 0.1);
-        border-radius: 10px;
-        padding: 1rem;
-        font-weight: 500;
-    }
-    
-    /* Alert Styling */
-    .stAlert {
-        border-radius: 10px;
-        border: none;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Spinner Styling */
-    .stSpinner {
-        text-align: center;
-        padding: 2rem;
-    }
-    
-    /* Footer Styling */
-    .footer {
-        text-align: center;
-        color: #888;
-        font-style: italic;
-        margin-top: 3rem;
-        padding: 2rem;
-        background: rgba(102, 126, 234, 0.05);
-        border-radius: 15px;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .main-title {
-            font-size: 2.5rem;
-        }
-        
-        .main-subtitle {
-            font-size: 1.1rem;
-        }
-        
-        .vibe-header h2 {
-            font-size: 2rem;
-        }
-        
-        .vibe-card {
-            padding: 1.5rem;
-        }
-        
-        .vibe-item {
-            padding: 1rem;
-        }
-        
-        .main .block-container {
-            padding: 1rem;
-        }
-    }
-    
-    /* Loading Animation */
-    .loading-animation {
-        display: inline-block;
-        width: 2rem;
-        height: 2rem;
-        border: 3px solid rgba(102, 126, 234, 0.3);
-        border-radius: 50%;
-        border-top-color: #667eea;
-        animation: spin 1s ease-in-out infinite;
-    }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-    
-    /* Gradient Text Animation */
-    .gradient-text {
-        background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: gradientShift 3s ease infinite;
-    }
-    
-    @keyframes gradientShift {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-    
-    /* Hover Effects */
-    .hover-lift {
-        transition: all 0.3s ease;
-    }
-    
-    .hover-lift:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: rgba(102, 126, 234, 0.1);
-        border-radius: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-    }
-    
-    /* Additional CSS for new elements */
-    .app-header {
-        margin-bottom: 2rem;
-    }
-    
-    .welcome-text {
-        color: #333;
-    }
-    
-    .wave-emoji {
-        animation: wave 2s ease-in-out infinite;
-        display: inline-block;
-    }
-    
-    @keyframes wave {
-        0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(20deg); }
-        75% { transform: rotate(-20deg); }
-    }
-    
-    .guest-badge {
-        background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-        color: #2d3436;
-        padding: 0.2rem 0.8rem;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        font-weight: 600;
         margin-left: 0.5rem;
         display: inline-block;
     }
-    
-    .section-divider {
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #667eea, transparent);
-        margin: 2rem 0;
-        border-radius: 1px;
-    }
-    
-    .input-section {
-        margin-bottom: 1.5rem;
-    }
-    
-    .example-btn-container {
-        display: flex;
-        align-items: flex-end;
-        height: 100%;
-        padding-bottom: 1.5rem;
-    }
-    
-    .textarea-container {
-        position: relative;
-    }
-    
-    .generate-section {
-        margin: 2rem 0;
-    }
-    
-    .error-message, .warning-message, .success-message {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem;
-        border-radius: 10px;
-        margin: 1rem 0;
-        font-weight: 500;
-    }
-    
-    .error-message {
-        background: rgba(255, 107, 107, 0.1);
-        color: #d63031;
-        border: 1px solid rgba(255, 107, 107, 0.3);
-    }
-    
-    .warning-message {
-        background: rgba(255, 234, 167, 0.3);
-        color: #e17055;
-        border: 1px solid rgba(255, 234, 167, 0.5);
-    }
-    
-    .success-message {
-        background: rgba(0, 184, 148, 0.1);
-        color: #00b894;
-        border: 1px solid rgba(0, 184, 148, 0.3);
-    }
-    
-    .loading-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 3rem 2rem;
-        background: rgba(102, 126, 234, 0.05);
-        border-radius: 15px;
-        margin: 2rem 0;
-    }
-    
-    .loading-text {
-        color: #667eea;
-        font-size: 1.1rem;
-        margin-top: 1rem;
-        font-weight: 500;
-    }
-    
-    .copy-section {
-        text-align: center;
-        margin: 2rem 0;
-    }
-    
-    .copy-title {
-        color: #333;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-    }
-    
-    .error-card, .warning-card {
-        background: white;
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 2rem 0;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid;
-    }
-    
-    .error-card {
-        border-left-color: #d63031;
-    }
-    
-    .warning-card {
-        border-left-color: #e17055;
-    }
-    
-    .error-header, .warning-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .error-header h3, .warning-header h3 {
-        margin: 0;
-        color: #333;
-    }
-    
-    .error-content, .warning-content {
-        color: #666;
-        line-height: 1.6;
-    }
-    
-    .error-steps {
-        background: rgba(102, 126, 234, 0.05);
-        padding: 1rem;
-        border-radius: 10px;
-        margin-top: 1rem;
-    }
-    
-    .error-steps h4 {
-        color: #333;
-        margin-bottom: 0.5rem;
-    }
-    
-    .error-steps ol {
-        margin: 0;
-        padding-left: 1.5rem;
-    }
-    
-    .error-steps li {
-        margin-bottom: 0.5rem;
-    }
-    
-    .error-steps a {
-        color: #667eea;
+    .youtube-link:hover {
+        background: #cc0000;
+        color: white;
         text-decoration: none;
-        font-weight: 500;
     }
-    
-    .error-steps a:hover {
-        text-decoration: underline;
+    .generate-btn {
+        background: linear-gradient(45deg, #ff6b6b, #ffa500);
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-size: 1.1rem;
     }
-    
+    .stTextArea > div > div > textarea {
+        border-radius: 15px;
+        border: 2px solid #e0e0e0;
+        padding: 1rem;
+        font-size: 1rem;
+    }
     .footer {
         text-align: center;
-        margin-top: 3rem;
-        padding: 2rem;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        border-radius: 15px;
-    }
-    
-    .footer-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    .footer-icon {
-        font-size: 2rem;
-        animation: pulse 2s ease-in-out infinite;
-    }
-    
-    .footer-content p {
-        color: #666;
-        font-size: 1.1rem;
-        margin: 0;
-    }
-    
-    .footer-links {
         color: #888;
-        font-size: 0.9rem;
         font-style: italic;
-    }
-    
-    /* Enhanced Mobile Responsiveness */
-    @media (max-width: 768px) {
-        .footer-content {
-            gap: 0.5rem;
-        }
-        
-        .footer-content p {
-            font-size: 1rem;
-        }
-        
-        .footer-links {
-            font-size: 0.8rem;
-        }
-        
-        .loading-container {
-            padding: 2rem 1rem;
-        }
-        
-        .error-card, .warning-card {
-            padding: 1.5rem;
-        }
+        margin-top: 2rem;
     }
     </style>
     """, unsafe_allow_html=True)
+    
+    # App header with user info
+    col1, col2, col3 = st.columns([2, 1, 1])
+    with col1:
+        st.markdown('<h1 class="main-header">🎵 You in a Song</h1>', unsafe_allow_html=True)
+        if 'user' in st.session_state:
+            user_name = st.session_state['user'].user_metadata.get('name', 'User')
+            st.markdown(f'<p class="subtitle">Welcome back, {user_name}! 🎶</p>', unsafe_allow_html=True)
+        else:
+            st.markdown('<p class="subtitle">Discover your personalized music vibe using AI (Guest Mode)</p>', unsafe_allow_html=True)
+    
+    with col3:
+        if 'user' in st.session_state:
+            if st.button("🚪 Logout", type="secondary"):
+                logout_user()
+                st.rerun()
+        elif 'guest_mode' in st.session_state:
+            if st.button("🔐 Login", type="secondary"):
+                del st.session_state['guest_mode']
+                st.rerun()
+    
+    # Show user history if logged in
+    if 'user' in st.session_state:
+        show_user_history()
+        st.markdown("---")
+    
+    # Description input with styling
+    st.markdown('<h3 class="section-header">📝 Tell us about yourself</h3>', unsafe_allow_html=True)
+    
+    # Sample description functionality
+    col1, col2 = st.columns([3, 1])
+    
+    # Initialize example in session state if not present
+    if "example_description" not in st.session_state:
+        st.session_state.example_description = ""
+    
+    with col2:
+        st.markdown("<br>", unsafe_allow_html=True)  # Add some spacing
+        if st.button("💡 Try an Example", type="secondary", use_container_width=True):
+            example_descriptions = [
+                "I'm an energetic person who loves early morning runs and coffee. I'm always planning my next adventure and have an optimistic view of the world.",
+                "I'm introspective and enjoy quiet evenings with books and tea. I find beauty in simple moments and often feel nostalgic about the past.",
+                "I'm a social butterfly who thrives in creative environments. I love vibrant colors, spontaneous plans, and making people laugh.",
+                "I'm a night owl who finds inspiration in city lights and jazz clubs. I'm passionate about art and have a sophisticated, mysterious personality."
+            ]
+            import random
+            st.session_state.example_description = random.choice(example_descriptions)
+    
+    with col1:
+        user_description = st.text_area(
+            "Describe yourself or someone else (2-3 sentences):",
+            value=st.session_state.example_description,
+            placeholder="I'm a creative person who loves rainy days and reading poetry. I often find myself daydreaming about distant places and have a melancholic but hopeful outlook on life...",
+            height=100,
+            key="description_input"
+        )
+    
+    # Generate button
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        generate_button = st.button("🎵 Generate Vibe", type="primary", use_container_width=True)
+    
+    # Process generation
+    if generate_button:
+        if not user_description.strip():
+            st.error("⚠️ Please enter a description before generating your vibe!")
+            return
+        
+        if len(user_description.strip().split()) < 10:
+            st.warning("💭 Try adding a bit more detail to get a better music vibe recommendation!")
+        
+        # Show loading spinner
+        with st.spinner("🎼 Analyzing your vibe and finding the perfect musical match..."):
+            try:
+                # Generate music vibe
+                vibe_result = generate_music_vibe(user_description)
+                
+                # Save to history if logged in
+                if 'user' in st.session_state and supabase:
+                    save_vibe_to_history(st.session_state['user'].id, user_description, vibe_result)
+                
+                # Display result
+                display_vibe_result(vibe_result)
+                
+                # Add copy functionality (bonus feature)
+                result_text = f"""Your Musical Vibe:
+Mood: {vibe_result.get('mood', 'Unknown')}
+Genre: {vibe_result.get('genre', 'Unknown')}
+Energy Level: {vibe_result.get('energy_level', 'Unknown')}
+Aesthetic Keywords: {', '.join(vibe_result.get('aesthetic_keywords', []))}
+Suggested Music: {vibe_result.get('suggested_music', 'Unknown')}"""
+                
+                st.markdown("---")
+                if st.button("📋 Copy Result to Clipboard"):
+                    st.code(result_text, language=None)
+                    st.success("✅ Result copied! You can now paste it anywhere.")
+                
+            except Exception as e:
+                error_message = str(e)
+                if "api_key" in error_message.lower() or "unauthorized" in error_message.lower() or "permission" in error_message.lower():
+                    st.error("🔑 **Google Gemini API Key Issue**")
+                    st.warning("""
+                    **What this means:** There's an issue with your Google Gemini API key.
+                    
+                    **How to fix this:**
+                    1. Go to https://ai.google.dev/
+                    2. Create a free Google account if needed
+                    3. Get your free API key (no billing required!)
+                    4. Google Gemini offers generous free usage limits
+                    
+                    **Note:** Google Gemini is FREE to use with good daily limits.
+                    """)
+                elif "quota" in error_message.lower() or "limit" in error_message.lower():
+                    st.error("📊 **Daily Limit Reached**")
+                    st.info("You've reached today's free usage limit. Try again tomorrow or upgrade for higher limits.")
+                else:
+                    st.error(f"😞 Oops! Something went wrong: {error_message}")
+                    st.info("💡 Please check your internet connection and try again. If the problem persists, the AI service might be temporarily unavailable.")
+    
+    # Footer with styling
+    st.markdown("---")
+    st.markdown('<p class="footer">Powered by Google Gemini (Free!) ✨</p>', unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main()
